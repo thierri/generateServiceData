@@ -1,0 +1,42 @@
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="serviceData\serviceData.js"></script>
+  <!-- <script src="C:\Users\thier\Desktop\git\itau\serviceDashboard\serviceData\serviceData.js"></script> -->
+  <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-gray-100">
+  
+  <div id="app" class="container mx-auto my-10 ">
+    <p class="text-xl font-bold">Service Dashboard</p>
+    <p>RT Consignado</p>
+    <div v-for="ms in msServiceData" class="hover:bg-gray-200 max-w-md my-4 flex justify-between p-4 bg-white shadow-xs rounded-lg shadow-xl bg-white">
+      <div class="">
+        <h4 class="text-xl text-gray-900 leading-tight">{{ms.funcionalidade}}</h4>
+        <p class="text-base text-gray-600 leading-normal">{{ms.macro_funcionalidade}}</p>
+      </div>
+      <div class="">
+        <p class="text-white bg-gray-300 text-gray-600 rounded p-1 px-3 my-3 text-right">Produção</p>
+        <p class="text-white bg-gray-300 text-gray-600 rounded p-1 px-3 my-3 text-right">Homologação</p>
+        <p class="text-white bg-green-200 text-green-600 rounded p-1 px-3 my-3 text-right">Desenvolvimento</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+
+    var app = new Vue({
+      el: '#app',
+      data: {
+        msServiceData: serviceData
+      }
+    })
+
+  </script>
+</body>
+
+</html>
