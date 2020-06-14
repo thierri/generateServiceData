@@ -1,0 +1,2 @@
+const data = [{"repo_url": "https://raw.githubusercontent.com/thierri/dotnetMSXmlGen/master/README.md", "funcionalidade": "Taxas", "macro_funcionalidade": "Simula\u00e7\u00e3o Consignado", "descritivo": "Microservi\u00e7o capaz de obter as taxas para um empr\u00e9stimo consignado dado um cliente e um conv\u00eanio."}];
+export default data;

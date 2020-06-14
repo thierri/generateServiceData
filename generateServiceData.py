@@ -1,6 +1,9 @@
 import requests
 import re
-
+import json
+import shutil
+import os
+from datetime import datetime
 """
 Service Dashboard
 Script utilizado para confeccionar o arquivo base com os dados dos microservicos.
@@ -9,13 +12,29 @@ Script utilizado para confeccionar o arquivo base com os dados dos microservicos
 LISTA_REPOSITORIOS="repositoriosServico.txt"
 ITENS_FICHA_TECNICA = ("funcionalidade", "macro_funcionalidade", "descritivo")
 BASE_REGEX = r'\|\*INDEX\*\|[a-zA-Z ]+\|([\w .]+)\|'
+SERVICE_DATA_FILE = 'serviceData.js'
+SERVICE_DATA_FOLDER = 'serviceData/'
+OLD_SERVICE_DATA_FOLDER = 'serviceData.js'
+
 
 def main():
     f = open(LISTA_REPOSITORIOS, "r")
+    finalResult = []
     for file_line in f:
         print('-> Processando Repositório: ')
-        print(file_line)
-        obterFichaTecnica(file_line)
+        print(file_line + "\n")
+        fichaTecninca = obterFichaTecnica(file_line)
+        finalResult.append(fichaTecninca)
+    # print(json.dumps(finalResult))
+    moveFile()
+    f = open( SERVICE_DATA_FOLDER +  SERVICE_DATA_FILE, "w")
+    f.write("const data = " + json.dumps(finalResult) + ";\nexport default data;")
+    f.close()
+
+def moveFile():
+    timestamp =  str(int(datetime.timestamp(datetime.now())))
+    if os.path.isfile(SERVICE_DATA_FOLDER + SERVICE_DATA_FILE):
+        shutil.move(os.path.join('serviceData', SERVICE_DATA_FILE), os.path.join('serviceData\\anteriores', timestamp + SERVICE_DATA_FILE))
 
 def obterFichaTecnica(url):
     r = requests.get(url)
@@ -36,7 +55,7 @@ def obterFichaTecnica(url):
             print(item_ficha_tecnica+ ': ' + match.group(1))
             fichaTecnica[item_ficha_tecnica] = match.group(1)
         except:
-            print('-> Não foi possível adicionar o item ' + item_ficha_tecnica)
+            print('[ERRO] -> Não foi possível adicionar o item ' + item_ficha_tecnica)
         
     return fichaTecnica
 
