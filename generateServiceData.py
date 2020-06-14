@@ -10,8 +10,8 @@ Script utilizado para confeccionar o arquivo base com os dados dos microservicos
 """
 
 LISTA_REPOSITORIOS="repositoriosServico.txt"
-ITENS_FICHA_TECNICA = ("funcionalidade", "macro_funcionalidade", "descritivo")
-BASE_REGEX = r'\|\*INDEX\*\|[a-zA-Z ]+\|([\w .]+)\|'
+ITENS_FICHA_TECNICA = ("funcionalidade", "macro_funcionalidade", "descritivo", "listen_topics", "produce_topics", "sit_producao", "sit_homol", "sit_dev", "obs", "contato")
+BASE_REGEX = r'\|\*INDEX\*\|[\w ]+\|([\w .,-@]+)\|'
 SERVICE_DATA_FILE = 'serviceData.js'
 SERVICE_DATA_FOLDER = 'serviceData/'
 OLD_SERVICE_DATA_FOLDER = 'serviceData/anteriores/'
@@ -28,7 +28,7 @@ def main():
     # print(json.dumps(finalResult))
     moveFile()
     f = open( SERVICE_DATA_FOLDER +  SERVICE_DATA_FILE, "w")
-    f.write("const data = " + json.dumps(finalResult) + ";\nexport default data;")
+    f.write("const serviceData = " + json.dumps(finalResult) + ";\n")
     f.close()
 
 def moveFile():
