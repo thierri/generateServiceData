@@ -14,7 +14,7 @@ ITENS_FICHA_TECNICA = ("funcionalidade", "macro_funcionalidade", "descritivo")
 BASE_REGEX = r'\|\*INDEX\*\|[a-zA-Z ]+\|([\w .]+)\|'
 SERVICE_DATA_FILE = 'serviceData.js'
 SERVICE_DATA_FOLDER = 'serviceData/'
-OLD_SERVICE_DATA_FOLDER = 'serviceData.js'
+OLD_SERVICE_DATA_FOLDER = 'serviceData/anteriores/'
 
 
 def main():
@@ -34,7 +34,7 @@ def main():
 def moveFile():
     timestamp =  str(int(datetime.timestamp(datetime.now())))
     if os.path.isfile(SERVICE_DATA_FOLDER + SERVICE_DATA_FILE):
-        shutil.move(os.path.join('serviceData', SERVICE_DATA_FILE), os.path.join('serviceData\\anteriores', timestamp + SERVICE_DATA_FILE))
+        shutil.move(SERVICE_DATA_FOLDER + SERVICE_DATA_FILE, OLD_SERVICE_DATA_FOLDER + str(timestamp + SERVICE_DATA_FILE))
 
 def obterFichaTecnica(url):
     r = requests.get(url)
